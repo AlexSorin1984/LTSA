@@ -3,15 +3,6 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
-        //String s = "ababcbacadefegdehijhklij";
-        //List<Integer> result = partitionLabels(s);
-
-        //int[] nums = {1,13,10,12,31};
-        //int n = countDistinctIntegers(nums);
-
-        //String s = "ssssss";
-        //int n = partitionString(s);
-
         String[] words = {"abc","deq","mee","aqq","dkd","ccc"};
         String pattern = "abb";
 
@@ -22,18 +13,41 @@ public class Main {
 
 
     public static List<String> findAndReplacePattern(String[] words, String pattern) {
-        List<String> result = new ArrayList<>();
+        List<String> ans = new ArrayList<>();
 
-
-
-        for(String s: words){
-
+        for (String s : words) {
+            if (isMatching(s, pattern)) {
+                ans.add(s);
+            }
         }
 
-        return null;
+        return ans;
     }
 
-    public static int findNumericalPatter(String str){
+    public static boolean isMatching(String s, String t) {
+        Map<Character, Character> map1 = new HashMap<>();
+        Map<Character, Boolean> map2 = new HashMap<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char fromString = s.charAt(i);
+            char fromPattern = t.charAt(i);
+
+            if (map1.containsKey(fromString)) {
+                if (map1.get(fromString) != fromPattern) return false;
+            }
+
+            else {
+                if (map2.containsKey(fromPattern)) return false;
+                else {
+                    map1.put(fromString, fromPattern);
+                    map2.put(fromPattern, true);
+                }
+            }
+        }
+        return true;
+    }
+
+    public static int findNumericalPattern(String str){
         Map<Character, Set<Integer>> myMap = new HashMap<>();
         char[] charArr = str.toCharArray();
 
@@ -43,8 +57,6 @@ public class Main {
             }
             myMap.get(charArr[i]).add(i);
         }
-
-        for(int i)
 
 
         return 0;
@@ -85,24 +97,6 @@ public class Main {
 
         System.out.println(allNums.toString());
         return allNums.size();
-    }
-
-    public static List<Integer> partitionLabels(String s) {
-        Map<Character, Set<Integer>> myMap = new HashMap<>();
-        char[] charArr = s.toCharArray();
-
-        for(int i=0; i<charArr.length; i++){
-            if(!myMap.containsKey(charArr[i])){
-                myMap.put(charArr[i], new HashSet<>());
-                myMap.get(charArr[i]).add(i);
-            } else{
-                myMap.get(charArr[i]).add(i);
-            }
-        }
-
-        System.out.println(myMap.toString());
-
-        return null;
     }
 
 
